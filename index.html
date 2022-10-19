@@ -29,20 +29,36 @@
       <p id="currentDay" class="lead"></p>
     </header>
     <div class="container">
-      <div id = "7am"></div>
-      <div id = "8am"></div>
-      <div id = "9am"></div>
-      <div id = "10am"></div>
-      <div id = "11am"></div>
-      <div id = "12pm"></div>
-      <div id = "1am"></div>
-      <div id = "2am"></div>
-      <div id = "3am"></div>
-      <div id = "4am"></div>
-      <div id = "5am"></div>
-      <!-- Timeblocks go here -->
+      <div id = "7am" class="Time"></div>
+      <div id = "8am"class="Time"></div>
+      <div id = "9am"class="Time"></div>
+      <div id = "10am"class="Time"></div>
+      <div id = "11am"class="Time"></div>
+      <div id = "12pm"class="Time"></div>
+      <div id = "1pm"class="Time"></div>
+      <div id = "2pm"class="Time"></div>
+      <div id = "3pm"class="Time"></div>
+      <div id = "4pm"class="Time"></div>
+      <div id = "5pm"class="Time"></div>
+    
     </div>
-
+    <div class="modal fade" id="formModal" tabindex="-1" aria-labelledby="formModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="formModalLabel">Add New Event</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            ...
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary">Save changes</button>
+          </div>
+        </div>
+      </div>
+    </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
     <script src="./Develop/script.js"></script>
