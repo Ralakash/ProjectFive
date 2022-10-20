@@ -6,6 +6,7 @@ var currentTime = setInterval(() => {
     currentDayEL.textContent = today.format('MMMM Do YYYY, h:mm:ss a');
 }, 1000)
 
+
 // references the time sections in the html and adds them to an array
 var sevenAM = document.getElementById("7am");
 var eightAM = document.getElementById("8am");
@@ -30,14 +31,17 @@ var formID = [];
 
 var saveData =[];
 
+// creates the elements and appends them into the proper areas it does this for each hour of the day
 for(var i = 0; i<timeOfDay.length; i++){
-    $(timeOfDay[i]).append('<ul class="row" id=list' + (i+7) + '></ul>');   
+    $(timeOfDay[i]).append('<ul class="row" id=list' + (i+7) + '></ul>');  
+    // creates arrays that can be called later if needed. These arrays store the class names of each hour. 
     listID[i] = "#list" + (i+7);
     timeID[i] = "#time" + (i+7);
     eventID[i] = "#event" + (i+7);
     saveID[i] = "#save" + (i+7);
     saveButtonID[i] = "#saveButton" + (i+7);
     formID[i] = "#form" + (i+7);
+    // creates an if statement to adjust the loop to print the right time based on if it before or after noon.
     $(listID[i]).append('<li class="col-2 " id=time' + (i+7) + '></li>');
     if((i+7) < 13){
         $(timeID[i]).text((i+7) + " am");
@@ -49,19 +53,41 @@ for(var i = 0; i<timeOfDay.length; i++){
     $(listID[i]).append('<li class="col-2 " id=save' + (i+7) + '></li>');
     $(saveID[i]).append('<button type="submit" class="btn btn-primary" id=saveButton' + (i+7) + '>Save</button>');
 }
-// for(var i = 0; i<saveButtonID.length; i++){
-// $(saveButtonID[i]).click( () => {
-//     saveData[i] = $(formID[i]).val();
-//     console.log(saveData[i]);
-// });
-// }
-$(".btn").click(() => {
-    debugger;
-    var id = $(this).attr("id");
+// creates a button click event that calls the id attribute of the button clicked it then uses that id to reference what form to find the value of and saves that information into local storage. it then calls a looper function to refresh the hour of the day and refresh the placeholder to call local storage.
+$(".btn").click(function(event) {
+    console.log(event);
+    var id = $(event.target).attr("id");
     const a = "saveButton";
     var arrayPoint = id.replace(a, "");
     console.log(arrayPoint);
     arrayPoint = arrayPoint - 7;
-    saveData[arrayPoint] = $(formID[arrayPoint]).val;
+    saveData[arrayPoint] = $(formID[arrayPoint]).val();
     console.log(saveData[arrayPoint]);
-})
+    localStorage.setItem("array", saveData);
+    looper();
+});
+
+var currentHour = moment().format("H") - 7;
+console.log(currentHour);
+const looper = () => {
+for (let i = 0; i < timeOfDay.length; i++) {
+    // if else statement to change the background color according to the current time.
+    if (i > currentHour) {
+        // change background color of listID[i] to .future
+        $(listID[i]).addClass("future");
+    } else if (i === currentHour){
+        // change background to .present
+        $(listID[i]).addClass("present");
+    } else {
+        // change background to .past
+        $(listID[i]).addClass("past");
+
+    }
+    // calls local storage to call the array item in local storage and split it back into an array and set the placeholder for each form to the proper element.
+    let placeholder = localStorage.getItem("array");
+    let placeholder1 = placeholder.split(",");
+    console.log(placeholder1);
+    $(formID[i]).val(placeholder1[i]);
+}  }
+// calls looper to set up the planner when the project first starts.
+looper();
