@@ -85,9 +85,12 @@ for (let i = 0; i < timeOfDay.length; i++) {
     }
     // calls local storage to call the array item in local storage and split it back into an array and set the placeholder for each form to the proper element.
     let placeholder = localStorage.getItem("array");
+    if(placeholder === null){
+        
+    }else{
     let placeholder1 = placeholder.split(",");
     console.log(placeholder1);
-    $(formID[i]).val(placeholder1[i]);
+    $(formID[i]).val(placeholder1[i]);}
 }  }
 // calls looper to set up the planner when the project first starts.
 looper();
